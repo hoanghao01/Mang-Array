@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -96,17 +95,47 @@ namespace Bai_Tap_Mang_Array
             }
             return secondMax;
         }
+
+        static void TimSoPhanTuGiongNhau(int[] arr)
+        {
+            //var soPhanTuGiongNhau = arr.GroupBy(_ => _).Where(_ => _.Count() > 1).Select(_ => _.Key).ToArray();
+            var soPhanTuGiongNhau = arr.GroupBy(_ => _).Select(x => new { Value = x.Key, Count = x.Count() });
+            Console.WriteLine("Cac phan tu giong nhau trong mang: ");
+            foreach (var i in soPhanTuGiongNhau)
+            {
+                Console.WriteLine(i + " ");
+            }
+        }
+        static void InPhanTuDuyNhat(int[] arr)
+        {
+            var phanTuDuyNhat = arr.Distinct().ToArray();
+            Console.WriteLine("Cac phan tu duy nhat trong mang: ");
+            foreach (var i in phanTuDuyNhat)
+            {
+                Console.WriteLine(i + " ");
+            }
+        }
+        static void ChiaMangChanMangLe(int[] arr)
+        {
+            var soChan = arr.Where(_ => _ % 2 == 0).ToArray();
+            var soLe = arr.Where(_ => _ % 2 != 0).ToArray();
+            Console.WriteLine($"Mang ban dau: {arr}");
+            Console.WriteLine($"Mang so chan: {soChan}");
+            Console.WriteLine($"Mang so le: {soLe}");
+        }
         static void Main(string[] args)
         {
-            int[] arr1 = NhapMang("Nhap mang: ");
+            int[] arr1 = NhapMang("Nhap mang: ");   //1
             XuatMang(arr1);
-            InMangNguoc(arr1);
-            int[] arr2 = SapXepMangGiamDan(arr1);
+            InMangNguoc(arr1);  //2
+            TimSoPhanTuGiongNhau(arr1); //3
+            InPhanTuDuyNhat(arr1);  //4
+            ChiaMangChanMangLe(arr1);
+            int[] arr2 = SapXepMangGiamDan(arr1);   //6
             XuatMang(arr2);
-            Console.WriteLine($"So lon thu hai trong mang: {arr2[1]}");
-            Console.WriteLine($"So lon thu hai trong mang: {FindByLoop(arr1)}");
-
-
+            Console.WriteLine($"So lon thu hai trong mang: {arr2[1]}");    //7
+            Console.WriteLine($"So lon thu hai trong mang: {FindByLoop(arr1)}");    //7
+            
 
             Console.ReadKey();
         }
